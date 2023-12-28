@@ -1,21 +1,18 @@
-
 import numpy as np
-from sklearn.datasets import load_breast_cancer
 import pandas as pd
 
-data=load_breast_cancer()["data"]
 
-column=load_breast_cancer()["feature_names"]
-
-
-df=pd.DataFrame(columns=column,data=data)
-
-
+""" The column_reduction function takes in a dataset with it features
+as column name in the form of a
+dataframe and a threshold corr. As an example if the correlation
+pairwise correlation for Column A, B, C is atleast the value of
+the threshold it returns only one column among A, B, C."""
 
 
-#df=pd.DataFrame({"A":[1,2,3,4,5,6,7],"B":[2,4,6,8,10,12,14],"C":[3,6,8,9,1,2,7],"D":[3,6,9,12,15,18,21]})
+# data=load_breast_cancer()["data"]
+# column=load_breast_cancer()["feature_names"]
+# df=pd.DataFrame(columns=column,data=data)
 
-#print(df)
 def column_reduction(data=df,corr=0.89):
 
     j=df.corr().abs()
@@ -46,10 +43,8 @@ def column_reduction(data=df,corr=0.89):
     data_column.update(set(df.columns[list(w)]))
     new_columns=list(data_column)
     new_columns.sort()
-    modify_data=df[new_columns]
 
     old, new=len(df.columns) , len(modify_data.columns)
     print(f"colums reduce from {old}, columns to {new} columns")
-    return (modify_data,new_columns)
+    return new_columns
 
-print(column_reduction())
